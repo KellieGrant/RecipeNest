@@ -1,6 +1,15 @@
 import React, { useState, useRef } from 'react';
 
 const AddRecipePage = () => {
+  const [photo, setPhoto] = useState(null);
+
+  const handlePhotoChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setPhoto(URL.createObjectURL(file));
+    }
+  };
+
   const [ingredients, setIngredients] = useState('');
   const [steps, setSteps] = useState('');
 
@@ -28,6 +37,27 @@ const AddRecipePage = () => {
         <div className="bg-white px-6 py-8 mb-4 shadow-md rounded-md border m-4 md:m-0">
           <form>
             <h2 className="text-3xl text-center font-bold mb-6">Add Recipe</h2>
+
+            {/* Photo */}
+            <div className="mb-4">
+              <label className="block text-[#6b7280] font-bolld mb-2">
+                Recipe Photo
+              </label>
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handlePhotoChange}
+                className="w-full border rounded-lg p-3 text-lg shadow-sm bg-white focus:outline-none focus:ring-2 focus:ring-[#7bae7f]"
+              />
+
+              {photo && (
+                <img
+                  src={photo}
+                  alt="Preview"
+                  className="mt-4 w-40 h-40 object-cover rounded-lg shadow mx-auto"
+                />
+              )}
+            </div>
 
             {/* Recipe Name */}
             <div className="mb-4">
